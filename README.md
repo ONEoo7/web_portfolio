@@ -11,8 +11,7 @@ Static portfolio (Vite + React + TypeScript) with a RAG-powered chat assistant
 ├── app/                   # nginx-served static output (Vite build target)
 ├── api/                   # Node CopilotKit runtime + RAG retriever
 ├── content/               # Markdown knowledge base for RAG (edit this!)
-├── litellm_config.yaml    # LiteLLM model routing
-├── docker-compose.yml     # nginx, certbot, app, api, litellm
+├── docker-compose.yml     # nginx, certbot, app, api
 ├── nginx.conf
 ├── default.conf           # HTTP → HTTPS + ACME challenge
 ├── portfolio.conf         # HTTPS server + /api/copilotkit proxy
@@ -35,11 +34,16 @@ Browser ──HTTPS──▶ nginx ──┬──▶ app   (static Vite build)
 ```
 
 The chat widget (`<CopilotPopup>`) is mounted bottom-right on every page.
-Each user message is intercepted by a CopilotKit middleware on the server,
-which retrieves the top-K relevant chunks from `content/` and injects them
-as system context before the LLM call. The LLM call itself is routed through
-LiteLLM so the upstream provider can be swapped in `litellm_config.yaml`
-without touching application code.
+Each user message is handled by a CopilotKit `BuiltInAgent` (AI SDK factory
+mode) on the server, which retrieves the top-K relevant chunks from `content/`
+and injects them as the system prompt before calling the LLM. The LLM call
+itself goes through an externally-managed LiteLLM proxy, so the upstream
+provider can be swapped in your LiteLLM config without touching application
+code.
+
+> LiteLLM is **not** part of this compose stack — it's expected to be running
+> separately and reachable from the api container at `LITELLM_URL` (see
+> `.env.example`).
 
 ## Local development
 
@@ -47,7 +51,8 @@ without touching application code.
 
 ```bash
 cp .env.example .env
-# fill in OPENAI_API_KEY and set LITELLM_MASTER_KEY
+# Set DOMAIN, CERTBOT_EMAIL, LITELLM_URL, LITELLM_MASTER_KEY,
+# COPILOT_MODEL, EMBEDDING_MODEL to match your LiteLLM proxy.
 ```
 
 ### 2. Frontend
@@ -73,19 +78,14 @@ LITELLM_API_KEY=$LITELLM_MASTER_KEY \
 npm run dev      # http://localhost:8080
 ```
 
-### 4. LiteLLM (local)
+### 4. LiteLLM (external)
 
-You can either run the full stack via `docker compose up litellm`, or run
-LiteLLM directly:
-
-```bash
-docker run --rm -p 4000:4000 \
-  -e OPENAI_API_KEY=$OPENAI_API_KEY \
-  -e LITELLM_MASTER_KEY=$LITELLM_MASTER_KEY \
-  -v $(pwd)/litellm_config.yaml:/app/config.yaml:ro \
-  ghcr.io/berriai/litellm:main-stable \
-  --config /app/config.yaml --port 4000
-```
+LiteLLM is **not** managed by this repo's compose file. Run it however you
+prefer (host service, separate compose project, k8s, etc.) and point
+`LITELLM_URL` at it. From the dockerized api container, the host machine is
+reachable at `host.docker.internal:<port>`; from `npm run dev` on the host
+shell, use `localhost:<port>`. The proxy must expose the model aliases set in
+`COPILOT_MODEL` and `EMBEDDING_MODEL`.
 
 ## Production build (Docker Compose)
 
@@ -110,7 +110,9 @@ The index is rebuilt automatically each time the api container starts.
 
 ## Swapping the LLM provider
 
-Edit `litellm_config.yaml`. Example — switch the chat model to Anthropic:
+Edit your LiteLLM proxy's own config to remap the `chat` / `embeddings` model
+aliases (or whatever you've set in `COPILOT_MODEL` / `EMBEDDING_MODEL`) to a
+different upstream. For example, with the standard LiteLLM YAML schema:
 
 ```yaml
 model_list:
@@ -120,5 +122,4 @@ model_list:
       api_key: os.environ/ANTHROPIC_API_KEY
 ```
 
-Then add `ANTHROPIC_API_KEY=...` to `.env` and restart the `litellm` service.
-No application code changes required.
+Restart LiteLLM; no changes needed in this repo.
