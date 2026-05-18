@@ -12,6 +12,8 @@ dist/
 build/
 .vite/
 *.tsbuildinfo
+# Vite output of web/ — derived, rebuilt with `npm run build`
+app/
 
 # Logs
 *.log
@@ -23,6 +25,7 @@ pnpm-debug.log*
 # Editor / OS
 .vscode/
 .idea/
+.claude/
 *.swp
 .DS_Store
 Thumbs.db

@@ -2,76 +2,63 @@ import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import {
   CopilotRuntime,
-  OpenAIAdapter,
-  copilotRuntimeNodeHttpEndpoint,
-} from "@copilotkit/runtime";
-import OpenAI from "openai";
+  BuiltInAgent,
+  convertMessagesToVercelAISDKMessages,
+  createCopilotHonoHandler,
+} from "@copilotkit/runtime/v2";
+import { createOpenAI } from "@ai-sdk/openai";
+import { streamText } from "ai";
 import { config } from "./config.js";
 import { systemPrompt } from "./prompt.js";
 import { loadIndex, retrieve, formatContext, isLoaded } from "./rag/retriever.js";
 
 await loadIndex();
 
-const openai = new OpenAI({
+const openaiProvider = createOpenAI({
   baseURL: `${config.litellmUrl}/v1`,
   apiKey: config.litellmApiKey || "sk-no-key",
 });
 
-const serviceAdapter = new OpenAIAdapter({
-  openai,
-  model: config.chatModel,
-});
+const ragAgent = new BuiltInAgent({
+  type: "aisdk",
+  factory: async (ctx) => {
+    const messages = ctx.input.messages ?? [];
+    const lastUser = [...messages].reverse().find((m) => m.role === "user");
+    const userText =
+      typeof lastUser?.content === "string" ? lastUser.content : "";
 
-const runtime = new CopilotRuntime({
-  middleware: {
-    onBeforeRequest: async ({ inputMessages }: any) => {
-      const lastUser = [...inputMessages]
-        .reverse()
-        .find((m: any) => m?.role === "user" || m?.textMessage?.role === "user");
+    let prompt = systemPrompt;
+    if (userText.trim()) {
+      const hits = await retrieve(userText);
+      prompt = `${systemPrompt}\n\nRetrieved context:\n${formatContext(hits)}`;
+    }
 
-      const userText: string =
-        lastUser?.content ??
-        lastUser?.textMessage?.content ??
-        "";
+    const result = streamText({
+      model: openaiProvider.chat(config.chatModel),
+      system: prompt,
+      messages: convertMessagesToVercelAISDKMessages(messages),
+      abortSignal: ctx.abortSignal,
+    });
 
-      if (!userText) return;
-
-      const hits = await retrieve(String(userText));
-      const context = formatContext(hits);
-
-      inputMessages.unshift({
-        role: "system",
-        content: `${systemPrompt}\n\nRetrieved context:\n${context}`,
-      });
-    },
+    return { fullStream: result.fullStream };
   },
 });
 
-const app = new Hono();
+const runtime = new CopilotRuntime({
+  agents: { default: ragAgent },
+});
 
+const copilotApp = createCopilotHonoHandler({
+  runtime,
+  basePath: "/copilotkit",
+  mode: "single-route",
+});
+
+const app = new Hono();
 app.get("/healthz", (c) =>
   isLoaded() ? c.text("ok") : c.text("indexing", 503)
 );
-
-app.all("/copilotkit/*", async (c) => {
-  const handler = copilotRuntimeNodeHttpEndpoint({
-    endpoint: "/copilotkit",
-    runtime,
-    serviceAdapter,
-  });
-  // @ts-expect-error — handler is a Node http handler; Hono exposes raw req/res
-  return handler(c.env.incoming, c.env.outgoing);
-});
-
-app.all("/copilotkit", async (c) => {
-  const handler = copilotRuntimeNodeHttpEndpoint({
-    endpoint: "/copilotkit",
-    runtime,
-    serviceAdapter,
-  });
-  // @ts-expect-error — same as above
-  return handler(c.env.incoming, c.env.outgoing);
-});
+app.route("/", copilotApp);
 
 serve({ fetch: app.fetch, port: config.port }, (info) => {
   console.log(`[api] listening on http://0.0.0.0:${info.port}`);

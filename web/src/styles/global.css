@@ -239,8 +239,40 @@ footer {
   font-size: 0.85rem;
 }
 
-/* CopilotKit popup tweaks — anchor to right */
-.copilotKitButton {
-  right: 24px !important;
-  bottom: 24px !important;
+/* Custom chat launcher: label + CopilotKit button, both pinned bottom-right */
+.chat-launcher {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Cancel CopilotKit's own fixed positioning so the button flows inside the launcher */
+.chat-launcher .copilotKitButton {
+  position: static !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+.chat-launcher-label {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.15s ease;
+}
+
+/* Hide the label once the chat is open */
+.chat-launcher.open .chat-launcher-label {
+  opacity: 0;
+  pointer-events: none;
 }

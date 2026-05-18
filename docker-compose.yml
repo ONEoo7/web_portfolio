@@ -99,7 +99,7 @@ services:
     expose:
       - "80"          # internal only — NOT published to host
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -120,8 +120,8 @@ services:
       - LITELLM_API_KEY=${LITELLM_MASTER_KEY}
       - CONTENT_DIR=/app/content
       - INDEX_PATH=/app/index.json
-      - COPILOT_MODEL=chat
-      - EMBEDDING_MODEL=embeddings
+      - COPILOT_MODEL=${COPILOT_MODEL}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
     networks:
       - frontend
     expose:
