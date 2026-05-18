@@ -1,0 +1,25 @@
+{
+  "name": "portfolio-api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "index": "tsx src/rag/build-index.ts",
+    "index:prod": "node dist/rag/build-index.js"
+  },
+  "dependencies": {
+    "@copilotkit/runtime": "^1.10.4",
+    "@hono/node-server": "^1.13.7",
+    "gray-matter": "^4.0.3",
+    "hono": "^4.6.10",
+    "openai": "^4.73.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
