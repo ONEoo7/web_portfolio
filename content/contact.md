@@ -4,7 +4,7 @@ title: Contact
 
 # Contact
 
-The best way to reach Stefan is by email: **stefan.ghitescu91@gmail.com**.
+The best way to reach me is by email: **stefan.ghitescu91@gmail.com**.
 
 Other links (placeholders — replace as needed):
 
@@ -15,6 +15,6 @@ Stefan is generally open to:
 
 - Interesting freelance / contract engagements.
 - Conversations with teams hiring senior engineers.
-- Collaboration on small open-source projects.
+- Collaboration on open-source projects.
 
-He prefers email for first contact and replies within a few business days.
+I prefer email for first contact and will reply within a few business days.

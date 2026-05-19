@@ -118,12 +118,15 @@ p {
   max-width: var(--maxw);
   margin: 0 auto;
 }
-.hero .tagline {
-  font-size: 1.15rem;
-  max-width: 620px;
+/* Markdown-rendered h1 becomes h2 globally; restore hero size */
+.hero h2 {
+  font-size: 2.4rem;
 }
-.hero .cta {
-  margin-top: 24px;
+.hero p {
+  font-size: 1.15rem;
+}
+.hero a {
+  margin-top: 12px;
   display: inline-block;
   padding: 12px 18px;
   border: 1px solid var(--border);
@@ -131,7 +134,7 @@ p {
   color: var(--fg);
   background: var(--bg-elev);
 }
-.hero .cta:hover {
+.hero a:hover {
   border-color: var(--accent);
   text-decoration: none;
 }

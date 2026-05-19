@@ -10,7 +10,7 @@ Static portfolio (Vite + React + TypeScript) with a RAG-powered chat assistant
 ├── web/                   # Vite + React + TS source — builds into ../app/
 ├── app/                   # nginx-served static output (Vite build target)
 ├── api/                   # Node CopilotKit runtime + RAG retriever
-├── content/               # Markdown knowledge base for RAG (edit this!)
+├── content/               # Markdown for both page sections AND RAG (edit this!)
 ├── docker-compose.yml     # nginx, certbot, app, api
 ├── nginx.conf
 ├── default.conf           # HTTP → HTTPS + ACME challenge
@@ -40,6 +40,12 @@ and injects them as the system prompt before calling the LLM. The LLM call
 itself goes through an externally-managed LiteLLM proxy, so the upstream
 provider can be swapped in your LiteLLM config without touching application
 code.
+
+The `content/` directory is **dual-purpose**: each markdown file is both
+rendered as a page section (fetched at runtime by the frontend) *and* indexed
+into the RAG embeddings the chatbot retrieves from. Editing a file updates
+both, on different cadences — see "Editing site text and chatbot knowledge"
+below.
 
 > LiteLLM is **not** part of this compose stack — it's expected to be running
 > separately and reachable from the api container at `LITELLM_URL` (see
@@ -97,16 +103,27 @@ cd web && npm install && npm run build && cd ..
 docker compose up -d --build
 ```
 
-## Editing the chat knowledge base
+## Editing site text and chatbot knowledge
 
-Edit any file in `content/` and re-run indexing:
+All page copy lives in `content/*.md` — one file per section
+(`hero.md`, `bio.md`, `experience.md`, `projects.md`, `skills.md`, `contact.md`).
+Both the page and the chatbot read from these files, but they pick up changes
+on different schedules:
 
-```bash
-cd api && npm run index
-# or rebuild the api container: docker compose up -d --build api
-```
+| What you edited           | What you need to do                          |
+| ------------------------- | -------------------------------------------- |
+| Just the **page text**    | Refresh the browser. nginx serves `content/` live from a read-only bind mount. |
+| Want the **chatbot** to know too | `docker compose restart api` — the api container re-indexes against the live `./content/` at startup. No image rebuild. |
 
-The index is rebuilt automatically each time the api container starts.
+The api container bind-mounts `./content` as `/app/content:ro`, so a restart
+is sufficient to pick up any edits. You do **not** need to run
+`docker compose build` for content changes.
+
+To add a new section, create `content/<name>.md` and reference it from a new
+React component (see `web/src/components/About.tsx` for the minimal pattern).
+Adding a brand-new section *does* require a one-time `npm run build` in
+`web/` to ship the new component; subsequent text edits to that section's
+markdown file do not.
 
 ## Swapping the LLM provider
 

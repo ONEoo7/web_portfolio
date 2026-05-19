@@ -22,7 +22,8 @@ ENV INDEX_PATH=/app/index.json
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY api/package.json ./
-COPY content ./content
+# content/ is bind-mounted at runtime (see docker-compose.yml) so the chatbot
+# stays in sync with edits to the markdown files without rebuilding the image.
 
 EXPOSE 8080
 
