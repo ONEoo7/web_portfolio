@@ -18,7 +18,7 @@ title: Experience
  - Requirements Engineering Assistant based on ASPICE v4
 
 **Technologies**:
- - Javascript, Typescript, Python, Enterprise Architect, Claude Desktop, Electron, Copilotkit, React, CrewAI, Qdrant, Langfuse, RAGFlow, LiteLLM Proxy Server, neo4j, Docling
+ - Javascript, Typescript, Python, Enterprise Architect, Claude Desktop, Electron, Copilotkit, React, CrewAI, Qdrant, Langfuse, RAGFlow, LiteLLM Proxy Server, neo4j, Docling,
  Ollama, LM Studio, Open WebUI, AnythingLLM, Lemonade Server    
 
 **Major Challenges**:
@@ -118,7 +118,7 @@ title: Experience
 
 **Major Challenges**: 
  - Measuring sound rountrip latency and coming up with solutions to reduce it 
- - Clock synchronnization between multiple nodes in the network 
+ - Clock synchronization between multiple nodes in the network 
 
 # Infotainment - Software Defined Audio (SDA)
 **Client**:
