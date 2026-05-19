@@ -11,6 +11,8 @@ export const config = {
   embeddingModel: process.env.EMBEDDING_MODEL ?? "embeddings",
   contentDir:
     process.env.CONTENT_DIR ?? path.resolve(here, "../../content"),
+  promptPath:
+    process.env.PROMPT_PATH ?? path.resolve(here, "../../prompts/system.md"),
   indexPath:
     process.env.INDEX_PATH ?? path.resolve(here, "../index.json"),
   topK: Number(process.env.RAG_TOP_K ?? 4),

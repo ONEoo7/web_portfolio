@@ -57,7 +57,7 @@ title: Experience
  - Vector MCROSAR (classic AUTOSAR)
 
 **Scope**:
- - Cryptography, PLC (power line communication), V2L (vehicle to load), TCP/IP with TLS
+ - Cryptography, PLC (power line communication), V2L (vehicle to load), TCP/IP with TLS, Smart Charging Communication
 
 **Technologies**:
  - C/Assembly, Python, Batch, WinIDEA, iSystem iC5700 debugger, Oscilloscope and Multimeter measurements, Vector VT7970 (PLC), RobotFramework, Vector CANoe,

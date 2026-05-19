@@ -4,30 +4,27 @@ title: Skills
 
 # Skills
 
-> Placeholder. Edit this list to reflect Stefan's actual skill set and depth.
-
 ## Languages
 
-- TypeScript / JavaScript — daily driver for frontend and backend work.
-- Python — services, scripting, ML / RAG prototypes.
-- Go — backend services where simplicity and performance matter.
-- SQL — Postgres in particular, including query tuning.
-- Bash — comfortable scripting Linux environments.
+- C/C++ - advanced
+- Python - advanced
+- Java - basic
+- Bash - advanced
+- CAPL - advanced
 
-## Frontend
-
-- React, Vite, modern CSS (CSS variables, grid, flex).
-- Accessibility-conscious markup and keyboard navigation.
-
-## Backend & Infrastructure
-
-- Node.js (Hono, Fastify, Express), FastAPI.
-- Postgres, Redis.
-- Docker, Docker Compose, nginx reverse proxying with TLS via Let's Encrypt.
-- Linux server administration on small self-hosted setups.
-
-## Other
-
-- LLM application work: RAG pipelines, prompt design, evaluation.
-- Observability basics: structured logs, metrics, healthchecks.
-- CI/CD with GitHub Actions.
+## Development Tools
+- source code management: git, gitlab, github, IBM CM Synergy, git extensions
+- application lifecycle manageent: Jira, IBM Change Synergy, Windchill RV&S, Codebeamer
+- testing: RobotFramework, Vector CANoe, Shade(Yazaki Internal), ATP (Continental Internal)
+- unit testing: google test framework, VectorCast
+- build systems: make, cmake, svm, bitbake, waf
+- templating: jinja2
+- debugging: gdb, WinIDEA
+- design: Enterprise Architect, IBM Rhapsody
+- configuration: Vector Davinci Developer/Configurator, EB Tresos
+- ide's: visual studio, vs code, eclipse c/c++, qt creator, Android Studio
+- AI assisted coding: Claude Desktop/Code
+- virtualization: VMware Workstation, VirtualBox, QEMU
+- containers: Docker
+- LLM fine tuning: Unsloth
+- local inference: LM Studio, Ollama

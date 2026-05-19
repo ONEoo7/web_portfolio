@@ -120,11 +120,13 @@ services:
       - LITELLM_URL=${LITELLM_URL}
       - LITELLM_API_KEY=${LITELLM_MASTER_KEY}
       - CONTENT_DIR=/app/content
+      - PROMPT_PATH=/app/prompts/system.md
       - INDEX_PATH=/app/index.json
       - COPILOT_MODEL=${COPILOT_MODEL}
       - EMBEDDING_MODEL=${EMBEDDING_MODEL}
     volumes:
       - ./content:/app/content:ro
+      - ./prompts:/app/prompts:ro
     networks:
       - frontend
     expose:

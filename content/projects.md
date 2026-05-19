@@ -1,8 +1,8 @@
 ---
-title: Personal Projects
+title: Projects
 ---
 
-## Personal Projects
+## Projects
 
 # [Unity Physics Lab](https://github.com/ONEoo7/unity_physics_lab)
 > Visualize physics experiments
@@ -19,3 +19,13 @@ title: Personal Projects
 > - Can save recording to .wav
 > - Can try to answer question asked by either callers using LLM
 > - Can select different inference providers (local: LM Studio, cloud: OpenAI/Anthropic)
+
+# BrainsAI
+> AI chat interface for separate Agents
+> - frontend: Electron, Copilotkit, React, Next.js
+> - backend: Agent orchestration (CrewAI), Observability (Langfuse), LLM Gateway (LiteLLM Proxy Server), Embeddings Database (qdrant), Knowledge Graph (neo4j), Document Processing (Docling)
+> - Requirements Engineering Assistant based on ASPICE v4
+> - PDF import wizard, complete with cleanup, VLM image to text, Table conversion to markdown/json and original document formatting preservation
+> - Requirements tasks like: ambiguity, contradiction, rules base analysis (INCOSE), decomposition to system level req, function and domain further decomposition and assignment (ex: sw, hw and mechanical)
+
+![Brains AI 1](/content/images/brains_ai/brains_ai_1.png) ![Brains AI 2](/content/images/brains_ai/brains_ai_2.png) ![Brains AI 3](/content/images/brains_ai/brains_ai_3.png) ![Brains AI 4](/content/images/brains_ai/brains_ai_4.png)

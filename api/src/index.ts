@@ -9,7 +9,7 @@ import {
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { config } from "./config.js";
-import { systemPrompt } from "./prompt.js";
+import { getSystemPrompt } from "./prompt.js";
 import { loadIndex, retrieve, formatContext, isLoaded } from "./rag/retriever.js";
 
 await loadIndex();
@@ -27,17 +27,36 @@ const ragAgent = new BuiltInAgent({
     const userText =
       typeof lastUser?.content === "string" ? lastUser.content : "";
 
+    console.log(
+      `[chat] request: msgs=${messages.length} userText="${userText.slice(0, 80)}"`
+    );
+
+    const systemPrompt = await getSystemPrompt();
     let prompt = systemPrompt;
+    let hitCount = 0;
     if (userText.trim()) {
       const hits = await retrieve(userText);
+      hitCount = hits.length;
       prompt = `${systemPrompt}\n\nRetrieved context:\n${formatContext(hits)}`;
     }
+    const aiSdkMessages = convertMessagesToVercelAISDKMessages(messages);
+    console.log(
+      `[chat] retrieved ${hitCount} hit(s); forwarding ${aiSdkMessages.length} msg(s) to ${config.chatModel}`
+    );
 
     const result = streamText({
       model: openaiProvider.chat(config.chatModel),
       system: prompt,
-      messages: convertMessagesToVercelAISDKMessages(messages),
+      messages: aiSdkMessages,
       abortSignal: ctx.abortSignal,
+      onError: ({ error }) => {
+        console.error("[chat] streamText error:", error);
+      },
+      onFinish: ({ finishReason, usage }) => {
+        console.log(
+          `[chat] streamText finished reason=${finishReason} tokens=${usage?.totalTokens}`
+        );
+      },
     });
 
     return { fullStream: result.fullStream };
