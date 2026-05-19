@@ -242,6 +242,75 @@ footer {
   font-size: 0.85rem;
 }
 
+/* Markdown image thumbnails (click to enlarge) */
+.md-thumb {
+  display: inline-block;
+  max-height: 140px;
+  max-width: 220px;
+  margin: 8px 8px 8px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elev);
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.md-thumb:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Fullscreen lightbox shown when a thumbnail is clicked */
+.md-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  cursor: zoom-out;
+  backdrop-filter: blur(4px);
+}
+.md-lightbox img {
+  max-width: 95vw;
+  max-height: 95vh;
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+
+/* Prev / next navigation buttons inside the lightbox */
+.md-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(22, 26, 34, 0.7);
+  color: var(--fg);
+  font-size: 2rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.md-lightbox-nav:hover {
+  background: rgba(22, 26, 34, 0.95);
+  border-color: var(--accent);
+}
+.md-lightbox-nav.prev {
+  left: 24px;
+}
+.md-lightbox-nav.next {
+  right: 24px;
+}
+
 /* Custom chat launcher: label + CopilotKit button, both pinned bottom-right */
 .chat-launcher {
   position: fixed;

@@ -125,6 +125,37 @@ Adding a brand-new section *does* require a one-time `npm run build` in
 `web/` to ship the new component; subsequent text edits to that section's
 markdown file do not.
 
+### Markdown features
+
+The renderer (`react-markdown` + `remark-gfm`) supports standard CommonMark
+plus a few niceties tuned for this site:
+
+| Want…                          | Markdown                                                 |
+| ------------------------------ | -------------------------------------------------------- |
+| A clickable link               | `[Project name](https://example.com)`                    |
+| Auto-linked URL                | Just paste the URL — bare `https://…` becomes a link.    |
+| Auto-linked email              | Paste the address — `you@example.com` opens the mail app. |
+| External link (new tab)        | Any `http(s)://…` link auto-opens in a new tab.          |
+
+### Images
+
+Drop image files anywhere under `content/` (e.g. `content/images/`) and
+reference them with standard markdown image syntax:
+
+```markdown
+![Chladni patterns](/content/images/unity_physics_lab/chladni.png)
+```
+
+Behaviour:
+
+- Images render as thumbnails (~220×140 px max) inline with the surrounding
+  text. Multiple images on the same line lay out as a row.
+- Clicking a thumbnail opens it fullscreen in a lightbox; click or press
+  `Esc` to dismiss.
+- nginx serves `/content/...` from the same live bind mount as the markdown,
+  so adding or replacing an image is a drop-and-refresh operation — no
+  rebuild needed.
+
 ## Swapping the LLM provider
 
 Edit your LiteLLM proxy's own config to remap the `chat` / `embeddings` model
