@@ -41,3 +41,5 @@ letsencrypt/
 coverage/
 .cache/
 tmp/
+
+**.pdf

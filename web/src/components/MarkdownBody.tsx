@@ -69,11 +69,13 @@ export default function MarkdownBody({ path }: { path: string }) {
           a: ({ href, children, ...props }) => {
             const isExternal =
               href?.startsWith("http://") || href?.startsWith("https://");
+            const isPdf = /\.pdf(\?|#|$)/i.test(href ?? "");
             return (
               <a
                 href={href}
-                target={isExternal ? "_blank" : undefined}
+                target={isExternal && !isPdf ? "_blank" : undefined}
                 rel={isExternal ? "noreferrer noopener" : undefined}
+                download={isPdf ? "" : undefined}
                 {...props}
               >
                 {children}

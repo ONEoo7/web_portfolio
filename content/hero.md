@@ -8,4 +8,4 @@ I'm a systems engineer with 12+ years of experience in the automotive industry. 
 
 This site has a chat widget — ask it anything about my background.
 
-[Get in touch →](#contact)
+[Get in touch →](#contact) [Download resume ⬇](/content/resume/stefan_ghitescu_resume_2026.pdf)

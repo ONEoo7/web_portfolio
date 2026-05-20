@@ -20,6 +20,8 @@ title: Projects
 > - Can try to answer question asked by either callers using LLM
 > - Can select different inference providers (local: LM Studio, cloud: OpenAI/Anthropic)
 
+![CallMind 1](/content/images/callmind/callmind_1.png) ![CallMind 2](/content/images/callmind/callmind_2.png)
+
 # BrainsAI
 > AI chat interface for separate Agents
 > - frontend: Electron, Copilotkit, React, Next.js

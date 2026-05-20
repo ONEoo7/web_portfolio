@@ -40,7 +40,7 @@ title: Experience
 
 **Technologies**:
  - C, Python, WinIDEA, iSystem iC5700 debugger, Oscilloscope, multimeter and logic analyzer measurements, Vector CANoe, RobotFramework, git, Gitlab, Enterprise Architect,
- Vector Davinci Developer/Configurator  
+ Vector Davinci Developer/Configurator, Elektrobit Tresos  
 
 **Major Challenges**:
  - Solving system resets without TRACE unit inside the microcontroller
@@ -61,7 +61,7 @@ title: Experience
 
 **Technologies**:
  - C/Assembly, Python, Batch, WinIDEA, iSystem iC5700 debugger, Oscilloscope and Multimeter measurements, Vector VT7970 (PLC), RobotFramework, Vector CANoe,
- Windchill RV&S, git, Gitlab, Enterprise Architect, Vector Davinci Developer/Configurator  
+ Windchill RV&S, git, Gitlab, Enterprise Architect, Vector Davinci Developer/Configurator, Elektrobit Tresos  
 
 **Standards**:
  - ISO 15118 (Road Vehicles — Vehicle to Grid Communication Interface)
