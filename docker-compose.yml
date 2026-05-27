@@ -18,6 +18,9 @@ services:
       - ./certbot/www:/var/www/certbot:ro
       - certbot-dhparam:/etc/nginx/dhparam:ro
       - ./content:/srv/content:ro
+      - ./analytics:/srv/analytics:ro
+      - ./nginx/auth/htpasswd:/etc/nginx/auth/htpasswd:ro
+      - nginx-logs:/var/log/nginx
     networks:
       - frontend
     depends_on:
@@ -141,8 +144,42 @@ services:
       timeout: 5s
       retries: 5
 
+  # ─────────────────────────────────────────
+  # GOACCESS — Traffic analytics from nginx logs
+  # Re-parses /var/log/nginx/portfolio.access.log every 5 min and renders an HTML
+  # report at ./analytics/index.html, which nginx serves at /analytics/
+  # behind basic auth.
+  # ─────────────────────────────────────────
+  goaccess:
+    image: allinurl/goaccess:1.9.4
+    container_name: portfolio-goaccess
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        while :; do
+          if [ -s /var/log/nginx/portfolio.access.log ]; then
+            goaccess /var/log/nginx/portfolio.access.log
+              --log-format=COMBINED
+              --output=/srv/analytics/index.html
+              --no-progress
+              --html-report-title="Portfolio analytics" || true;
+          fi;
+          sleep 300;
+        done
+    volumes:
+      - nginx-logs:/var/log/nginx:ro
+      - ./analytics:/srv/analytics
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
 volumes:
   certbot-dhparam:  # persists the generated DH params
+  nginx-logs:       # shared between nginx (writer) and goaccess (reader)
 
 networks:
   frontend:
