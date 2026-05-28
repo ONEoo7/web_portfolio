@@ -162,6 +162,7 @@ services:
             goaccess /var/log/nginx/portfolio.access.log
               --log-format=COMBINED
               --output=/srv/analytics/index.html
+              --geoip-database=/geoip/dbip-city-lite.mmdb
               --no-progress
               --html-report-title="Portfolio analytics" || true;
           fi;
@@ -170,6 +171,28 @@ services:
     volumes:
       - nginx-logs:/var/log/nginx:ro
       - ./analytics:/srv/analytics
+      - ./geoip:/geoip:ro
+    networks:
+      - frontend
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  # ─────────────────────────────────────────
+  # GEOIP-UPDATER — Daily DB-IP refresh
+  # Sleeps a day, then re-downloads dbip-city-lite if the local file is
+  # older than MIN_AGE_DAYS (default 25). The goaccess container re-reads
+  # the mmdb on its next 5-min report cycle, so no restart is needed.
+  # ─────────────────────────────────────────
+  geoip-updater:
+    image: alpine:3.20
+    container_name: portfolio-geoip-updater
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "/usr/local/bin/refresh-geoip.sh"]
+    volumes:
+      - ./geoip:/geoip
+      - ./scripts/refresh-geoip.sh:/usr/local/bin/refresh-geoip.sh:ro
     networks:
       - frontend
     security_opt:

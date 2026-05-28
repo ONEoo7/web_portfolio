@@ -171,3 +171,65 @@ model_list:
 ```
 
 Restart LiteLLM; no changes needed in this repo.
+
+## Traffic analytics (GoAccess)
+
+A `goaccess` sidecar parses nginx's access log every 5 minutes and renders a
+static HTML dashboard at **`https://<your-domain>/analytics/`**, behind HTTP
+basic auth.
+
+| Component        | Where                                            |
+| ---------------- | ------------------------------------------------ |
+| Rendered report  | `analytics/index.html` (gitignored)              |
+| Credentials      | `nginx/auth/htpasswd` (gitignored)               |
+| nginx log file   | `portfolio.access.log` inside the `nginx-logs` named volume |
+| GeoIP database   | `geoip/dbip-city-lite.mmdb` (gitignored, ~130 MB) |
+| Refresh script   | `scripts/refresh-geoip.sh`                       |
+
+### Rotating the basic-auth password
+
+```powershell
+docker run --rm httpd:2.4-alpine htpasswd -nbB admin "YOUR-NEW-PASSWORD" `
+  | Set-Content -Encoding ascii nginx\auth\htpasswd
+docker compose exec nginx nginx -s reload
+```
+
+### GeoIP database
+
+Provides the **Geo Location** and **City** panels in the dashboard. The
+`geoip-updater` container wakes once a day and re-downloads the latest
+[DB-IP free city-lite database](https://db-ip.com/db/lite.php) if the local
+file is older than `MIN_AGE_DAYS` (default 25). `goaccess` re-reads the
+`.mmdb` on every report cycle, so refreshes apply automatically with no
+restart.
+
+First-time bootstrap (one-shot manual download — same logic the updater
+runs, just immediate):
+
+```powershell
+$ym = (Get-Date).ToString("yyyy-MM")
+Invoke-WebRequest -Uri "https://download.db-ip.com/free/dbip-city-lite-$ym.mmdb.gz" `
+  -OutFile geoip\new.gz -UseBasicParsing
+$in  = [IO.File]::OpenRead("geoip\new.gz")
+$out = [IO.File]::Create("geoip\dbip-city-lite.mmdb")
+$gz  = New-Object IO.Compression.GZipStream($in, [IO.Compression.CompressionMode]::Decompress)
+$gz.CopyTo($out); $gz.Dispose(); $out.Dispose(); $in.Dispose()
+Remove-Item geoip\new.gz
+```
+
+### Tweaking the updater
+
+Set env vars on the `geoip-updater` service in `docker-compose.yml`:
+
+- `MIN_AGE_DAYS` — skip the download if the local file is younger than
+  this. Default `25`.
+- `SLEEP_SECONDS` — interval between checks. Default `86400` (1 day).
+
+### Force-refresh now
+
+```powershell
+docker compose exec geoip-updater sh -c "rm -f /geoip/dbip-city-lite.mmdb && /bin/sh /usr/local/bin/refresh-geoip.sh"
+```
+
+(Ctrl+C once the "updated geoip → YYYY-MM" line appears — it's a one-shot
+inside `exec`.)

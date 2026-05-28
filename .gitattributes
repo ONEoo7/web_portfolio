@@ -1,0 +1,3 @@
+# Force LF line endings on shell scripts so Windows checkouts don't break
+# when these are executed inside Linux containers.
+*.sh text eol=lf

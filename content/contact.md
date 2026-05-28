@@ -4,12 +4,8 @@ title: Contact
 
 # Contact
 
-The best way to reach me is by email: **stefan.ghitescu91@gmail.com**.
-
-Other links:
-
-- GitHub: https://github.com/ONEoo7
-- LinkedIn: https://www.linkedin.com/in/stefan-ghitescu-69081a1a2/
+The best way to reach me is by email: **stefan.ghitescu91@gmail.com**.  
+International phone number: +40754909188
 
 I am generally open to:
 
