@@ -11,6 +11,8 @@ import { streamText } from "ai";
 import { config } from "./config.js";
 import { getSystemPrompt } from "./prompt.js";
 import { loadIndex, retrieve, formatContext, isLoaded } from "./rag/retriever.js";
+import { renderResume } from "./resume/render.js";
+import type { Variant } from "./resume/document.js";
 
 await loadIndex();
 
@@ -77,6 +79,30 @@ const app = new Hono();
 app.get("/healthz", (c) =>
   isLoaded() ? c.text("ok") : c.text("indexing", 503)
 );
+
+// Resume PDFs generated on-demand from the live content/*.md files.
+// /resume/short.pdf — condensed recruiter version
+// /resume/full.pdf  — comprehensive technical CV
+app.get("/resume/:file", async (c) => {
+  const file = c.req.param("file");
+  const variant: Variant | null =
+    file === "full.pdf" ? "full" : file === "short.pdf" ? "short" : null;
+  if (!variant) return c.notFound();
+  try {
+    const pdf = await renderResume(variant);
+    return new Response(new Uint8Array(pdf), {
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${config.resumeName.replace(/\s+/g, "_")}_${variant}.pdf"`,
+        "Cache-Control": "no-cache",
+      },
+    });
+  } catch (err) {
+    console.error("[resume] render failed:", err);
+    return c.text("Failed to generate resume", 500);
+  }
+});
+
 app.route("/", copilotApp);
 
 serve({ fetch: app.fetch, port: config.port }, (info) => {

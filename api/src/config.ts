@@ -13,6 +13,8 @@ export const config = {
     process.env.CONTENT_DIR ?? path.resolve(here, "../../content"),
   promptPath:
     process.env.PROMPT_PATH ?? path.resolve(here, "../../prompts/system.md"),
+  resumeName: process.env.RESUME_NAME ?? "Stefan Ghitescu",
+  siteUrl: process.env.SITE_URL ?? "oneoo7x.asuscomm.com",
   indexPath:
     process.env.INDEX_PATH ?? path.resolve(here, "../index.json"),
   topK: Number(process.env.RAG_TOP_K ?? 4),

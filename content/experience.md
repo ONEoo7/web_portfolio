@@ -107,7 +107,7 @@ title: Experience
 
 ## Software Engineer — Continental Automotive (2013 – 2022)
 
-# Telematics
+# Telematics (BSRF)
 **Client**:
  - Stellantis
 
