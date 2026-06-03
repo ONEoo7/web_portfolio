@@ -154,24 +154,12 @@ services:
     image: allinurl/goaccess:1.9.4
     container_name: portfolio-goaccess
     restart: unless-stopped
-    entrypoint: ["/bin/sh", "-c"]
-    command:
-      - >-
-        while :; do
-          if [ -s /var/log/nginx/portfolio.access.log ]; then
-            goaccess /var/log/nginx/portfolio.access.log
-              --log-format=COMBINED
-              --output=/srv/analytics/index.html
-              --geoip-database=/geoip/dbip-city-lite.mmdb
-              --no-progress
-              --html-report-title="Portfolio analytics" || true;
-          fi;
-          sleep 300;
-        done
+    entrypoint: ["/bin/sh", "/usr/local/bin/goaccess-loop.sh"]
     volumes:
       - nginx-logs:/var/log/nginx:ro
       - ./analytics:/srv/analytics
       - ./geoip:/geoip:ro
+      - ./scripts/goaccess-loop.sh:/usr/local/bin/goaccess-loop.sh:ro
     networks:
       - frontend
     security_opt:

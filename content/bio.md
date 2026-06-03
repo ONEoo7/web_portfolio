@@ -6,7 +6,7 @@ title: Bio
 
 Bacalaureat (Romanian high school diploma) — 9.53/10  
 
-West University of Timișoara — Computer Science (2010–2013)
+West University of Timișoara — Computer Science (2011–2014)
 
 Romanian (native), English (fluent), Spanish (TODO)  
 
