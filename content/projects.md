@@ -31,3 +31,8 @@ title: Projects
 > - Requirements tasks like: ambiguity, contradiction, rules base analysis (INCOSE), decomposition to system level req, function and domain further decomposition and assignment (ex: sw, hw and mechanical)
 
 ![Brains AI 1](/content/images/brains_ai/brains_ai_1.png) ![Brains AI 2](/content/images/brains_ai/brains_ai_2.png) ![Brains AI 3](/content/images/brains_ai/brains_ai_3.png) ![Brains AI 4](/content/images/brains_ai/brains_ai_4.png)
+
+# [DFMEA Inspector](https://github.com/ONEoo7/dev_tools_dfmea)
+> Import an APIS IQ export (MSR FMEA 2.1.2) and explore the structure tree and failure net.
+
+![DFMEA Inspector 1](/content/images/dfmea_inspector/dfmea_inspector_1.png)
