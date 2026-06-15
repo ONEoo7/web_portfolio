@@ -8,7 +8,7 @@ title: Experience
  - Yazaki
 
 **Responsibilities**:
- - System Architecture, Development, Integration, Testing
+ - Architecture ownership, Development, Integration, Testing
 
 **Team**:
  - One man with a lot of patience.
@@ -34,8 +34,11 @@ title: Experience
 **Client**:
  - Volvo
 
+**Process**:
+ - V Cycle
+
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture contributions, Development, Integration, Testing
 
 **Team**:
  - Collaborated with team from (India)
@@ -44,7 +47,8 @@ title: Experience
  - Vector MCROSAR (classic AUTOSAR)
 
 **Scope**:
- - Cryptography, Calibration, Operating System resource management
+ - Cryptography, Calibration, OS, Watchdog, CAN, BSWM, Encrypted CAN communication (via CANTP), UDS security access, SPI, GPT, MCU, HSE (hardware security engine)
+ - Full stack from MCAL to BSW to SWC/CDD
 
 **Technologies**:
  - C, Python, WinIDEA, iSystem iC5700 debugger, Oscilloscope, multimeter and logic analyzer measurements, Vector CANoe, RobotFramework, git, Gitlab, Enterprise Architect,
@@ -59,7 +63,7 @@ title: Experience
  - Yazaki
 
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture ownership, Development, Integration, Testing
 
 **Team**:
  - Local team of 2 people.
@@ -81,8 +85,11 @@ title: Experience
 **Client**:
  - Stellantis
 
+**Process**:
+ - V Cycle
+
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture contributions, Development, Integration, Testing
 
 **Team**:
  - Collaborated with teams from (Mexico, United States, Great Britain, France)
@@ -91,7 +98,9 @@ title: Experience
  - Vector MCROSAR (classic AUTOSAR)
 
 **Scope**:
- - Cryptography, PLC (power line communication), V2L (vehicle to load), TCP/IP with TLS, Smart Charging Communication
+ - Cryptography, PLC (power line communication), V2L (vehicle to load), Smart Charging Communication, Calibration
+ - BSW modules: CSM, CryIf, Crypto Driver, KeyM, SCC, Exi, XmlSec, TCP/IP with TLS, EthIf
+ - SWC/CDD: SCCIF, smart charging communication manager
 
 **Technologies**:
  - C/Assembly, Python, Batch, WinIDEA, iSystem iC5700 debugger, Oscilloscope and Multimeter measurements, Vector VT7970 (PLC), RobotFramework, Vector CANoe,
@@ -111,8 +120,11 @@ title: Experience
 **Client**:
  - Stellantis
 
+**Process**:
+ - Agile, Kanban
+
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture ownership, Development, Integration, Testing
 
 **Team**:
  - Collaborated with teams from (Germany, Tunisia, France)
@@ -140,8 +152,11 @@ title: Experience
 **Client**:
  - Continental platform
 
+**Process**:
+ - Agile, Scrum
+
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture contributions, Development, Integration, Testing
 
 **Team**:
  - Collaborated with teams from (Germany, Mexico, United States)
@@ -173,8 +188,11 @@ title: Experience
 **Client**:
  - Continental platform
 
+**Process**:
+ - Agile, Scrum
+
 **Responsibilities**:
- - Architecture, Development, Integration, Testing
+ - Architecture contributions, Development, Integration, Testing
 
 **Team**:
  - Collaborated with teams from (Germany, China, United States)

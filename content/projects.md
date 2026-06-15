@@ -22,6 +22,11 @@ title: Projects
 
 ![CallMind 1](/content/images/callmind/callmind_1.png) ![CallMind 2](/content/images/callmind/callmind_2.png)
 
+# [Local Speech-To-Text](https://github.com/ONEoo7/ai_tools_whisper_speech_to_text)
+> Run locally OpenAI Whisper models for speech-to-text
+> - tested on RTX 5090 laptop GPU using experimental PyTorch cu128
+> - works with CallMind application
+
 # BrainsAI
 > AI chat interface for separate Agents
 > - frontend: Electron, Copilotkit, React, Next.js
@@ -36,3 +41,11 @@ title: Projects
 > Import an APIS IQ export (MSR FMEA 2.1.2) and explore the structure tree and failure net.
 
 ![DFMEA Inspector 1](/content/images/dfmea_inspector/dfmea_inspector_1.png)
+
+# [neo4j Graph Explorer](https://github.com/ONEoo7/dev_tools_neo4j_graph_explorer)
+> Web app for visualizing neo4j graphs
+
+![neo4j Graph Explorer 1](/content/images/neo4j_graph_explorer/neo4j_graph_explorer_1.png)
+
+# [Dev Tools Best Practices](https://github.com/ONEoo7/dev_tools_best_practices)
+> Best Practices for different programming languages and standards

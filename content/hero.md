@@ -2,9 +2,9 @@
 title: Hero
 ---
 
-# Hi, I'm Stefan.
+# Hi, I'm Stefan - Software Engineer.
 
-Over 12 years I've worked across embedded systems, real-time audio, telematics, automotive security, and AI tooling — always going deep enough to own architecture, development, and testing end to end. I am drawn to technically complex problems regardless of domain.
+I've spent over a decade writing software where bugs have real consequences — cryptography in electric vehicle chargers, real-time audio in moving cars, security systems that talk to hardware vaults. These days I'm channeling that same obsession with correctness into AI tooling that actually works in production. I build things end to end, sometimes alone, always from first principles.
 
 This site has a chat widget — ask it anything about my background. (Do not abuse it, it's just a small Qwen 3.5 2B model running on an intel iGPU)
 

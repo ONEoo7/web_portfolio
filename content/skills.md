@@ -7,6 +7,7 @@ title: Skills
 ## Languages
 
 - C/C++ - advanced
+- Rust - beginner
 - Asm - beginner
 - Python - advanced
 - Java - beginner
