@@ -49,3 +49,31 @@ title: Projects
 
 # [Dev Tools Best Practices](https://github.com/ONEoo7/dev_tools_best_practices)
 > Best Practices for different programming languages and standards
+> C
+> C++
+> Java
+> Python
+> Rust
+> C#
+> html
+> css
+> javascript
+> typescript
+
+# [AI Tools Evals](https://github.com/ONEoo7/ai_tools_evals)
+> Evaluate context window degradation for local (LM Studio) and cloud-based inference (OpenAI, Anthropic)
+>
+> **Scenarios**
+> - Factual Recall
+> - Reasoning
+> - Instruction Following
+> - Tool Calling
+> - Agentic AI
+>
+> **Phases**
+> - **Phase 1**: parallel batching with one question + one answer
+> - **Phase 1 (serial)**: same setup as Phase 1, but executed serially
+> - **Phase 2**: one question + one answer as the conversation grows
+>
+> **Validation**
+> - LLM-as-a-Judge for correctness checking
