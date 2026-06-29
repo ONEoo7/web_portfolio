@@ -68,7 +68,6 @@ title: Projects
 > - Reasoning
 > - Instruction Following
 > - Tool Calling
-> - Agentic AI
 >
 > **Phases**
 > - **Phase 1**: parallel batching with one question + one answer
@@ -77,3 +76,6 @@ title: Projects
 >
 > **Validation**
 > - LLM-as-a-Judge for correctness checking
+>
+> **Agentic AI**
+> - TODO
