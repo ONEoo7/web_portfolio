@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useMarkdown } from "../lib/useMarkdown";
+import { withBase } from "../lib/withBase";
 
 type GalleryItem = { src: string; alt: string };
 type GalleryState = { items: GalleryItem[]; current: number };
@@ -72,7 +73,7 @@ export default function MarkdownBody({ path }: { path: string }) {
             const isPdf = /\.pdf(\?|#|$)/i.test(href ?? "");
             return (
               <a
-                href={href}
+                href={href ? withBase(href) : href}
                 target={isExternal && !isPdf ? "_blank" : undefined}
                 rel={isExternal ? "noreferrer noopener" : undefined}
                 download={isPdf ? "" : undefined}
@@ -84,7 +85,7 @@ export default function MarkdownBody({ path }: { path: string }) {
           },
           img: ({ src, alt }) => (
             <img
-              src={src as string}
+              src={withBase(src as string)}
               alt={alt ?? ""}
               className="md-thumb"
               loading="lazy"

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { withBase } from "./withBase";
 
 /**
  * Fetches a markdown file at runtime and returns its body (with any
@@ -10,7 +11,7 @@ export function useMarkdown(path: string): string {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(path)
+    fetch(withBase(path))
       .then((r) => (r.ok ? r.text() : ""))
       .then((text) => {
         if (!cancelled) setContent(stripFrontmatter(text));
