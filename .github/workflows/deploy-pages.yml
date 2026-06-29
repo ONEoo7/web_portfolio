@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         working-directory: web
@@ -33,7 +33,11 @@ jobs:
         working-directory: web
         run: npm run build
 
+      # enablement: turns Pages on for the repo if it isn't already,
+      # so no manual Settings → Pages step is needed.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       # vite.config.ts builds to the repo-root `app/` directory.
       - uses: actions/upload-pages-artifact@v3
